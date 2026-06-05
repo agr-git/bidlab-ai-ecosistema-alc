@@ -374,9 +374,39 @@ body {
 .cv-dl-btn.secondary { background: transparent; color: var(--txt2); border: 1px solid var(--bdr3); }
 .cv-dl-btn.secondary:hover { color: var(--orange); border-color: var(--orange); background: transparent; }
 .cv-body { padding: 36px 40px; font-size: 12px; line-height: 1.6; }
-.cv-name { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 2px; }
-.cv-role { font-size: 12px; color: var(--orange); font-weight: 600; margin-bottom: 14px; }
-.cv-contact { display: flex; flex-wrap: wrap; gap: 14px; font-size: 11px; color: var(--txt2); margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--bdr); }
+.cv-header-flex {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 28px;
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--bdr);
+  align-items: start;
+}
+@media (max-width: 640px) {
+  .cv-header-flex { grid-template-columns: 1fr; gap: 18px; }
+}
+.cv-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 12px;
+  background-color: var(--card2);
+  background-size: cover;
+  background-position: 50% 18%; /* focus on face, not full body */
+  border: 1px solid var(--bdr2);
+  overflow: hidden;
+  position: relative;
+}
+.cv-photo::after {
+  /* subtle inner shadow on edges for depth */
+  content: ''; position: absolute; inset: 0; border-radius: 12px;
+  box-shadow: inset 0 -40px 60px -30px rgba(0,0,0,.45);
+  pointer-events: none;
+}
+.cv-header-text { display: flex; flex-direction: column; justify-content: flex-start; padding-top: 4px; }
+.cv-name { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 4px; }
+.cv-role { font-size: 13px; color: var(--orange); font-weight: 600; margin-bottom: 16px; }
+.cv-contact { display: flex; flex-wrap: wrap; gap: 14px; font-size: 11px; color: var(--txt2); margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
 .cv-contact a { color: var(--txt2); text-decoration: none; }
 .cv-contact a:hover { color: var(--orange); }
 .cv-sec-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--orange); margin: 24px 0 14px; padding-bottom: 6px; border-bottom: 1px solid var(--bdr); }
