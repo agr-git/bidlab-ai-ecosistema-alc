@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Brief — BID Lab | Alejandro Gil Rivera</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #E8915C; --orange-b: #F5A147; --orange-d: #D17A47;
+  --blue: #7DD3FC; --green: #6EE7B7; --purple: #A78BFA;
+  --bg: #0A0A0A; --card: #1A1A1A; --card2: #141414;
+  --txt: #F5F5F5; --txt2: #A0A0A0; --txt3: #666;
+  --bdr: #2E2E2E; --bdr2: #3A3A3A; --bdr3: #444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--txt); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.6; }
+
+/* ── HEADER ── */
+.hdr {
+  background: rgba(10,10,10,.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--bdr); padding: 16px 40px;
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.hdr-left { display: flex; align-items: center; gap: 14px; }
+.hdr-icon { width: 36px; height: 36px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+.hdr-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; }
+.hdr-sub { font-size: 10px; color: var(--txt2); }
+.hdr-right { display: flex; align-items: center; gap: 10px; }
+.lang-btn {
+  display: flex; align-items: center; gap: 0;
+  background: var(--card); border: 1px solid var(--bdr3); border-radius: 20px; overflow: hidden;
+}
+.lang-btn button {
+  padding: 5px 12px; font-size: 10px; font-weight: 700; letter-spacing: .06em;
+  border: none; cursor: pointer; transition: all .2s;
+  background: transparent; color: var(--txt2);
+}
+.lang-btn button.active { background: var(--orange); color: #000; }
+.badge { background: var(--card); border: 1px solid var(--bdr3); padding: 4px 10px; border-radius: 20px; font-size: 10px; color: var(--orange); font-weight: 600; }
+
+/* ── NAV PILLS ── */
+.subnav { background: var(--card2); border-bottom: 1px solid var(--bdr); padding: 0 40px; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+.subnav::-webkit-scrollbar { display: none; }
+.snb { padding: 12px 16px; font-size: 11px; font-weight: 500; color: var(--txt2); background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: all .2s; text-decoration: none; display: block; }
+.snb:hover { color: var(--txt); }
+.snb.on { color: var(--orange); border-bottom-color: var(--orange); }
+
+/* ── SECTIONS ── */
+section { padding: 64px 40px; max-width: 920px; margin: 0 auto; }
+section + section { border-top: 1px solid var(--bdr); }
+
+/* ── HERO ── */
+.hero { padding: 80px 40px; max-width: 920px; margin: 0 auto; }
+.hero-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--orange); margin-bottom: 20px; }
+.hero-title { font-family: 'Syne', sans-serif; font-size: clamp(28px, 4vw, 44px); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 20px; }
+.hero-title em { font-style: normal; color: var(--orange); }
+.hero-desc { font-size: 16px; color: var(--txt2); max-width: 600px; line-height: 1.7; margin-bottom: 32px; }
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; padding-top: 28px; border-top: 1px solid var(--bdr); }
+.hero-meta a { font-size: 11px; font-weight: 600; color: var(--txt2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color .2s; }
+.hero-meta a:hover { color: var(--orange); }
+.hero-meta-divider { color: var(--bdr3); font-size: 18px; }
+
+/* ── SECTION TITLES ── */
+.sec-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--orange); margin-bottom: 8px; }
+.sec-title { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; margin-bottom: 10px; }
+.sec-sub { font-size: 14px; color: var(--txt2); max-width: 600px; line-height: 1.65; margin-bottom: 32px; }
+
+/* ── KPI CARDS ── */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 32px; }
+.kpi { background: var(--card); border: 1px solid var(--bdr); border-radius: 10px; padding: 20px; }
+.kv { font-family: 'DM Mono', monospace; font-size: 36px; font-weight: 500; color: var(--orange); line-height: 1; margin-bottom: 6px; }
+.kv.blue { color: var(--blue); }
+.kv.green { color: var(--green); }
+.kl { font-size: 10px; font-weight: 600; color: var(--txt2); text-transform: uppercase; letter-spacing: .08em; line-height: 1.4; }
+.kpi-src { font-size: 9px; color: var(--txt3); margin-top: 4px; font-style: italic; }
+
+/* ── CALLOUT ── */
+.callout { background: rgba(232,145,92,.06); border: 1px solid rgba(232,145,92,.25); border-left: 3px solid var(--orange); border-radius: 10px; padding: 20px 24px; margin-bottom: 28px; }
+.callout p { font-size: 14px; line-height: 1.7; color: var(--txt); }
+.callout strong { color: var(--orange); }
+
+/* ── LAYER CARDS (3 capas) ── */
+.layers { display: flex; flex-direction: column; gap: 14px; }
+.layer-card { background: var(--card); border: 1px solid var(--bdr); border-radius: 12px; overflow: hidden; transition: border-color .2s; }
+.layer-card:hover { border-color: var(--bdr2); }
+.layer-header { padding: 20px 24px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; cursor: pointer; }
+.layer-num { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+.layer-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.layer-brief { font-size: 12px; color: var(--txt2); }
+.layer-toggle { font-size: 18px; color: var(--txt3); transition: transform .2s; flex-shrink: 0; margin-top: 2px; }
+.layer-body { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s ease; }
+.layer-body.open { max-height: 400px; padding: 0 24px 22px; }
+.layer-hyp { font-size: 13px; color: var(--txt2); line-height: 1.7; margin-bottom: 14px; }
+.layer-hyp strong { color: var(--txt); }
+.layer-question { font-size: 12px; font-style: italic; color: var(--orange); border-left: 2px solid var(--orange); padding-left: 12px; }
+
+/* LAYER colors */
+.l1 .layer-num { background: rgba(232,145,92,.12); color: var(--orange); }
+.l1 .layer-title { color: var(--orange); }
+.l2 .layer-num { background: rgba(125,211,252,.1); color: var(--blue); }
+.l2 .layer-title { color: var(--blue); }
+.l3 .layer-num { background: rgba(167,139,250,.1); color: var(--purple); }
+.l3 .layer-title { color: var(--purple); }
+
+/* ── METHODOLOGY STEPS ── */
+.method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 600px) { .method-grid { grid-template-columns: 1fr; } }
+.method-card { background: var(--card); border: 1px solid var(--bdr); border-radius: 12px; padding: 22px; }
+.method-icon { font-size: 22px; margin-bottom: 12px; }
+.method-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.method-desc { font-size: 12px; color: var(--txt2); line-height: 1.65; }
+.method-tag { font-size: 9px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: .06em; margin-top: 10px; }
+
+/* ── ACTOR CARDS ── */
+.actor-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--bdr); }
+.actor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.actor-card { background: var(--card); border: 1px solid var(--bdr); border-radius: 10px; padding: 16px 18px; }
+.actor-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.actor-role { font-size: 11px; color: var(--txt2); line-height: 1.4; }
+.actor-flag { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-top: 8px; }
+.flag-orange { color: var(--orange); }
+.flag-blue { color: var(--blue); }
+.flag-green { color: var(--green); }
+
+/* ── BENCHMARKING ── */
+.bench-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.bench-card { background: var(--card); border: 1px solid var(--bdr); border-radius: 10px; padding: 16px; }
+.bench-flag { font-size: 22px; margin-bottom: 8px; }
+.bench-name { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+.bench-focus { font-size: 10px; color: var(--txt2); line-height: 1.5; }
+
+/* ── GANTT ── */
+.gantt-wrap { overflow-x: auto; }
+.gantt { width: 100%; border-collapse: collapse; min-width: 600px; font-size: 11px; }
+.gantt th { background: var(--card2); color: var(--txt2); font-weight: 600; text-align: center; padding: 8px 6px; border: 1px solid var(--bdr); font-size: 10px; }
+.gantt td { border: 1px solid var(--bdr); padding: 8px 10px; vertical-align: middle; }
+.gantt td.label { background: var(--card); font-size: 11px; font-weight: 600; color: var(--txt); white-space: nowrap; max-width: 200px; }
+.gantt td.sublabel { background: var(--card); font-size: 10px; color: var(--txt2); padding-left: 16px; }
+.g-o { background: rgba(232,145,92,.18); }
+.g-b { background: rgba(125,211,252,.12); }
+.g-g { background: rgba(110,231,183,.12); }
+.g-p { background: rgba(167,139,250,.12); }
+.pct { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--orange); font-weight: 500; }
+
+/* ── CV SECTION ── */
+.cv-wrap { background: var(--card); border: 1px solid var(--bdr); border-radius: 14px; overflow: hidden; }
+.cv-topbar { background: var(--card2); border-bottom: 1px solid var(--bdr); padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+.cv-topbar-title { font-size: 12px; font-weight: 600; color: var(--txt2); }
+.cv-dl-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--orange); color: #000; font-size: 11px; font-weight: 700;
+  padding: 7px 14px; border-radius: 8px; text-decoration: none;
+  border: none; cursor: pointer; transition: background .2s;
+}
+.cv-dl-btn:hover { background: var(--orange-b); }
+.cv-body { padding: 32px 36px; font-size: 12px; line-height: 1.6; }
+.cv-name { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -.01em; margin-bottom: 2px; }
+.cv-role { font-size: 12px; color: var(--orange); font-weight: 600; margin-bottom: 12px; }
+.cv-contact { display: flex; flex-wrap: wrap; gap: 14px; font-size: 11px; color: var(--txt2); margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--bdr); }
+.cv-contact a { color: var(--txt2); text-decoration: none; }
+.cv-contact a:hover { color: var(--orange); }
+.cv-sec-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--orange); margin: 22px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--bdr); }
+.cv-entry { display: grid; grid-template-columns: 110px 1fr; gap: 12px; margin-bottom: 14px; }
+.cv-date { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--txt3); padding-top: 2px; }
+.cv-title { font-size: 12px; font-weight: 700; margin-bottom: 1px; }
+.cv-org { font-size: 11px; color: var(--txt2); margin-bottom: 5px; }
+.cv-bullets { padding-left: 14px; }
+.cv-bullets li { font-size: 11px; color: var(--txt2); margin-bottom: 3px; line-height: 1.5; }
+.cv-bullets li span { color: var(--txt); font-weight: 500; }
+.cv-skill-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
+.cv-skill-label { font-size: 10px; font-weight: 700; color: var(--orange); min-width: 110px; padding-top: 1px; }
+.cv-skill-val { font-size: 11px; color: var(--txt2); line-height: 1.5; }
+
+/* ── EN COMING SOON OVERLAY ── */
+.lang-overlay { display: none; position: fixed; inset: 0; background: rgba(10,10,10,.92); z-index: 200; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
+.lang-overlay.show { display: flex; }
+.lang-overlay-title { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; }
+.lang-overlay-sub { font-size: 14px; color: var(--txt2); }
+.lang-overlay-close { margin-top: 10px; padding: 10px 24px; background: var(--orange); color: #000; border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
+
+/* ── TAGS ── */
+.tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 600; margin-right: 4px; }
+.to { background: rgba(232,145,92,.14); color: var(--orange); border: 1px solid rgba(232,145,92,.3); }
+.tb2 { background: rgba(125,211,252,.1); color: var(--blue); border: 1px solid rgba(125,211,252,.25); }
+.tg { background: rgba(110,231,183,.1); color: var(--green); border: 1px solid rgba(110,231,183,.25); }
+.tgr { background: rgba(255,255,255,.04); color: var(--txt2); border: 1px solid var(--bdr); }
+.tp { background: rgba(167,139,250,.1); color: var(--purple); border: 1px solid rgba(167,139,250,.25); }
+
+/* ── DIVIDER ── */
+hr.div { border: none; border-top: 1px solid var(--bdr); margin: 28px 0; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  section, .hero { padding: 48px 20px; }
+  .hdr { padding: 14px 20px; }
+  .subnav { padding: 0 20px; }
+  .method-grid { grid-template-columns: 1fr; }
+  .cv-entry { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- LANG OVERLAY (EN Coming Soon) -->
+<div class="lang-overlay" id="enOverlay">
+  <div style="font-size:32px">🚧</div>
+  <div class="lang-overlay-title">English version coming soon</div>
+  <div class="lang-overlay-sub">Este project brief está actualmente disponible en español.</div>
+  <button class="lang-overlay-close" onclick="toggleLang('es')">Volver al español</button>
+</div>
+
+<!-- STICKY HEADER -->
+<header class="hdr">
+  <div class="hdr-left">
+    <div class="hdr-icon">🔬</div>
+    <div>
+      <div class="hdr-title">Project Brief — BID Lab Consultoría</div>
+      <div class="hdr-sub">IA en el Ecosistema Emprendedor · ALC · 2026</div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="lang-btn">
+      <button id="btnES" class="active" onclick="toggleLang('es')">ES</button>
+      <button id="btnEN" onclick="toggleLang('en')">EN</button>
+    </div>
+    <span class="badge">v1 · Jun 2026</span>
+  </div>
+</header>
+
+<!-- SUB-NAV -->
+<nav class="subnav">
+  <a class="snb on" href="#contexto" onclick="setNav(this)">El Contexto</a>
+  <a class="snb" href="#tesis" onclick="setNav(this)">La Tesis</a>
+  <a class="snb" href="#metodologia" onclick="setNav(this)">Metodología</a>
+  <a class="snb" href="#actores" onclick="setNav(this)">Actores Clave</a>
+  <a class="snb" href="#benchmarking" onclick="setNav(this)">Benchmarking</a>
+  <a class="snb" href="#cronograma" onclick="setNav(this)">Cronograma</a>
+  <a class="snb" href="#consultor" onclick="setNav(this)">El Consultor</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-eyebrow">Approach Memo · Consultoría BID Lab SKI</div>
+  <h1 class="hero-title">
+    La IA en ALC no tiene<br>un problema de acceso.<br>
+    Tiene un problema de <em>velocidad diferencial</em><br>y lenguaje compartido.
+  </h1>
+  <p class="hero-desc">
+    Este document presenta el marco analítico, la visión metodológica y el enfoque de investigación que Alejandro Gil Rivera propone para producir la flagship publication de BID Lab sobre el impacto de la IA en el ecosistema emprendedor e inversión early-stage en América Latina y el Caribe.
+  </p>
+  <div class="hero-tags">
+    <span class="tag to">Investigación aplicada</span>
+    <span class="tag tb2">Ecosistemas de innovación</span>
+    <span class="tag tg">IA responsable</span>
+    <span class="tag tp">Información primaria</span>
+    <span class="tag tgr">4 meses · Remoto</span>
+  </div>
+  <div class="hero-meta">
+    <a href="https://linkedin.com/in/alejandrogilrivera" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17A1.4 1.4 0 0 1 15.71 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg>
+      alejandrogilrivera
+    </a>
+    <span class="hero-meta-divider">·</span>
+    <a href="mailto:gil.rivera.a@gmail.com">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      gil.rivera.a@gmail.com
+    </a>
+    <span class="hero-meta-divider">·</span>
+    <a href="https://github.com/git-agr" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33c.85 0 1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      git-agr
+    </a>
+    <span class="hero-meta-divider">·</span>
+    <span style="font-size:11px; color: var(--txt2);">Manizales, Colombia</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECCIÓN 1 — EL CONTEXTO
+════════════════════════════════════════════ -->
+<section id="contexto">
+  <div class="sec-label">01 · El punto de partida</div>
+  <h2 class="sec-title">Qué sabemos y qué falta saber</h2>
+  <p class="sec-sub">La nota técnica IDB-TN-3339 <em>Startups x IA</em> (BID Lab, mayo 2026) estableció la base empírica sobre adopción en la Capa 1. Los datos son inequívocos — y revelan la magnitud del problema que queda por resolver.</p>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kv">85%</div>
+      <div class="kl">de startups ALC usa herramientas de GenIA</div>
+      <div class="kpi-src">IDB-TN-3339, 2026</div>
+    </div>
+    <div class="kpi">
+      <div class="kv blue">12%</div>
+      <div class="kl">considera que las soluciones disponibles les sirven tal cual</div>
+      <div class="kpi-src">IDB-TN-3339, 2026</div>
+    </div>
+    <div class="kpi">
+      <div class="kv" style="color:var(--purple);">&lt;10%</div>
+      <div class="kl">de inversores introduce criterios de IA en sus procesos</div>
+      <div class="kpi-src">IDB-TN-3339, 2026</div>
+    </div>
+    <div class="kpi">
+      <div class="kv green">63%</div>
+      <div class="kl">de startups no conoce el marco regulatorio de IA de su país</div>
+      <div class="kpi-src">IDB-TN-3339, 2026</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p>El estudio existente cubre con rigor la Capa 1 (startups AI-enabled). Las Capas 2 y 3 — <strong>organizaciones del ecosistema e inversionistas early-stage</strong> — son territorio empírico aún inexplorado. El 88% de adaptación requerida y el &lt;10% de inversores con criterios de IA sugieren que el problema no es tecnológico: es un problema sistémico de velocidades distintas y lenguaje que aún no es común.</p>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+    <div class="method-card" style="border-color:rgba(232,145,92,.25);">
+      <div style="font-size:11px; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;">✓ Cubierto por IDB-TN-3339</div>
+      <div style="font-size:12px; color:var(--txt2); line-height:1.6;">Adopción de GenIA + predictiva · Perfiles desarrolladora/integradora/exploradora · Beneficios y obstáculos percibidos · Vínculos con actores del ecosistema · 107 startups, 14 países (excl. Brasil)</div>
+    </div>
+    <div class="method-card" style="border-color:rgba(125,211,252,.25);">
+      <div style="font-size:11px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;">→ Scope del nuevo estudio</div>
+      <div style="font-size:12px; color:var(--txt2); line-height:1.6;">Organizaciones del ecosistema (aceleradoras, hubs, VBs) · Inversionistas early-stage (VC, ángeles, CVC) · Interrelaciones entre las 3 capas · Benchmarking internacional · Inclusión de Brasil</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECCIÓN 2 — LA TESIS
+════════════════════════════════════════════ -->
+<section id="tesis">
+  <div class="sec-label">02 · Framework analítico</div>
+  <h2 class="sec-title">La hipótesis central y las tres capas</h2>
+  <p class="sec-sub">El ecosistema emprendedor de ALC está siendo transformado por la IA, pero los tres actores principales — startups, organizaciones de soporte e inversionistas — están aprendiendo a velocidades radicalmente distintas. Esto rompe el supuesto sobre el que se construyeron los modelos tradicionales de acompañamiento y financiamiento.</p>
+
+  <div class="callout" style="margin-bottom:24px;">
+    <p><strong>Tesis central:</strong> La brecha no es de acceso a IA, sino de velocidad diferencial y lenguaje compartido. El ecosistema necesita construir un marco conceptual común que permita a cada actor evaluarse, comunicarse y tomar decisiones en la misma frecuencia. Sin ese lenguaje, la velocidad de la tecnología amplifica las brechas en lugar de cerrarlas.</p>
+  </div>
+
+  <div class="layers">
+    <!-- Capa 1 -->
+    <div class="layer-card l1">
+      <div class="layer-header" onclick="toggleLayer(this)">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+            <span class="layer-num">Capa 1</span>
+            <span class="tag to">Startups</span>
+          </div>
+          <div class="layer-title">El gap es de mindset, no de herramientas</div>
+          <div class="layer-brief">¿Qué convierte a una exploradora en integradora o desarrolladora?</div>
+        </div>
+        <div class="layer-toggle">›</div>
+      </div>
+      <div class="layer-body">
+        <div class="layer-hyp">
+          La saturación de información fragmentada sobre IA genera <strong>ansiedad de herramienta</strong> — la pregunta permanente de "¿cuál uso?" — en lugar de una mentalidad experimental de prueba-error-aprendizaje. Lo que distingue a las startups que avanzan en madurez de adopción no es el acceso a modelos, sino la capacidad de traducir la tecnología en decisiones de negocio concretas. El estudio existente lo confirma: el perfil del founder es el predictor más fuerte de madurez tecnológica (sección 4.4 IDB-TN-3339).
+        </div>
+        <div class="layer-question">¿Qué condiciones habilitan el salto de explorador a integrador, y qué rol juegan las organizaciones del ecosistema en ese proceso?</div>
+      </div>
+    </div>
+
+    <!-- Capa 2 -->
+    <div class="layer-card l2">
+      <div class="layer-header" onclick="toggleLayer(this)">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+            <span class="layer-num">Capa 2</span>
+            <span class="tag tb2">Organizaciones del ecosistema</span>
+          </div>
+          <div class="layer-title">El mentor ya no sabe más que el founder en IA</div>
+          <div class="layer-brief">¿Están las organizaciones de soporte rediseñando su propuesta de valor?</div>
+        </div>
+        <div class="layer-toggle">›</div>
+      </div>
+      <div class="layer-body">
+        <div class="layer-hyp">
+          El modelo tradicional de aceleración asumía que el mentor sabe más que el founder. En IA, eso ya no aplica. Founders AI-native con equipos de 1–2 personas generan revenues de $1M+ más rápido que los ciclos de diseño de programa de cualquier aceleradora. Las organizaciones de soporte están en el mismo ciclo de aprendizaje que sus beneficiarios — sin saberlo o sin admitirlo. El resultado: <strong>programas que no matchean la velocidad de iteración real</strong> y modelos de acompañamiento que aún evalúan startups con criterios pre-IA.
+        </div>
+        <div class="layer-question">¿Qué tan en disposición están las organizaciones de apoyo para adaptar sus modelos, y qué nuevos intermediarios (AI studios, data enablers) están llenando el vacío?</div>
+      </div>
+    </div>
+
+    <!-- Capa 3 -->
+    <div class="layer-card l3">
+      <div class="layer-header" onclick="toggleLayer(this)">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+            <span class="layer-num">Capa 3</span>
+            <span class="tag tp">Inversionistas early-stage</span>
+          </div>
+          <div class="layer-title">Vacío epistémico, no falta de voluntad</div>
+          <div class="layer-brief">¿Qué significaría AI-readiness para el due diligence en ALC?</div>
+        </div>
+        <div class="layer-toggle">›</div>
+      </div>
+      <div class="layer-body">
+        <div class="layer-hyp">
+          El &lt;10% de inversores con criterios de IA no refleja resistencia — refleja que "AI readiness" no tiene aún una definición estable ni métricas consolidadas. La tecnología avanza más rápido que los marcos de evaluación. Adicionalmente, los instrumentos tradicionales de inversión (pre-seed, seed) fueron diseñados para ciclos de desarrollo que AI-native startups ya no siguen: <strong>requieren menos capital, iteran más rápido y tienen mayor dependencia de modelos de terceros</strong>, lo que cambia radicalmente el perfil de riesgo.
+        </div>
+        <div class="layer-question">¿Cómo están evaluando el AI-readiness los fondos más avanzados globalmente, y qué instrumentos de financiamiento son adecuados para startups AI-intensive en ALC?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECCIÓN 3 — METODOLOGÍA
+════════════════════════════════════════════ -->
+<section id="metodologia">
+  <div class="sec-label">03 · Diseño metodológico</div>
+  <h2 class="sec-title">Cómo construiremos la evidencia</h2>
+  <p class="sec-sub">La metodología propuesta extiende el enfoque cuantitativo del estudio IDB-TN-3339, incorporando una nueva capa de información primaria cualitativa que permitirá comprender las dinámicas de las Capas 2 y 3 y las interrelaciones entre los tres actores.</p>
+
+  <div class="method-grid">
+    <div class="method-card">
+      <div class="method-icon">📊</div>
+      <div class="method-title">Revisión secundaria y estado del arte</div>
+      <div class="method-desc">Revisión sistemática de literatura, reportes de industria (McKinsey, OECD/BCG, AgFunder, LAVCA), bases de datos Crunchbase y fuentes especializadas. Cobertura de tendencias globales y regionales incluyendo Brasil.</div>
+      <div class="method-tag">→ Entregable 1 · Semana 3</div>
+    </div>
+    <div class="method-card">
+      <div class="method-icon">🗺️</div>
+      <div class="method-title">Framework analítico y taxonomías</div>
+      <div class="method-desc">Diseño del marco conceptual: preguntas analíticas, hipótesis de investigación, dimensiones de análisis e indicadores. Construcción de taxonomías comparables entre países, sectores y tipos de actor para las 3 capas.</div>
+      <div class="method-tag">→ Entregable 1 · Semana 3</div>
+    </div>
+    <div class="method-card">
+      <div class="method-icon">📋</div>
+      <div class="method-title">Encuesta cuantitativa regional</div>
+      <div class="method-desc">Extensión y adaptación de la encuesta de IDB-TN-3339 a las Capas 2 y 3. Posibilidad de hacer seguimiento longitudinal con algunos actores del estudio previo. Diseño con base metodológica replicable y comparable.</div>
+      <div class="method-tag">→ Entregable 2 · Semanas 4–10</div>
+    </div>
+    <div class="method-card">
+      <div class="method-icon">🎙️</div>
+      <div class="method-title">Entrevistas semi-estructuradas</div>
+      <div class="method-desc">Protocolo de entrevistas en profundidad con actores clave de las tres capas: founders, líderes de aceleradoras/hubs y gestores de fondos VC y ángeles. Diseñadas para capturar dinámicas que la encuesta cuantitativa no puede revelar.</div>
+      <div class="method-tag">→ Entregable 2 · Semanas 4–10</div>
+    </div>
+    <div class="method-card">
+      <div class="method-icon">🌍</div>
+      <div class="method-title">Benchmarking internacional estructurado</div>
+      <div class="method-desc">Comparación con ecosistemas avanzados: modelos de adopción, mecanismos de apoyo, prácticas de VC vinculadas a IA y marcos de adopción responsable. Identificación de lecciones transferibles a ALC.</div>
+      <div class="method-tag">→ Entregable 1 · Semana 3</div>
+    </div>
+    <div class="method-card">
+      <div class="method-icon">📚</div>
+      <div class="method-title">Casos de estudio publicables</div>
+      <div class="method-desc">Selección y documentación de al menos 3 startups, 2–3 organizaciones del ecosistema y 2 inversionistas/fondos. Diversidad sectorial, geográfica y de perfiles de adopción. Formato visualmente atractivo y publicable.</div>
+      <div class="method-tag">→ Entregable 4 · Semana 16</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:24px;">
+    <p><strong>Continuidad metodológica:</strong> La extensión de la encuesta regional a nuevos actores (Capas 2 y 3) y el posible seguimiento longitudinal con respondientes del estudio previo generan comparabilidad intertemporal — un activo analítico valioso para futuros estudios del BID sobre la evolución del ecosistema.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECCIÓN 4 — ACTORES CLAVE
+════════════════════════════════════════════ -->
+<section id="actores">
+  <div class="sec-label">04 · Red de información primaria</div>
+  <h2 class="sec-title">Actores clave del ecosistema</h2>
+  <p class="sec-sub">La capacidad de acceso a fuentes primarias de calidad es determinante para la profundidad de la flagship publication. A continuación, una muestra representativa de actores con los que existe posibilidad de acceso o vínculo en el ecosistema de ALC.</p>
+
+  <div class="actor-section-label" style="color:var(--orange);">Capa 1 · Líderes del ecosistema de IA en ALC</div>
+  <div class="actor-grid">
+    <div class="actor-card">
+      <div class="actor-name">Martín Vásquez</div>
+      <div class="actor-role">Líder de comunidad IA · ALC</div>
+      <div class="actor-flag flag-orange">Acceso potencial</div>
+    </div>
+    <div class="actor-card">
+      <div class="actor-name">Salomón Zurruk</div>
+      <div class="actor-role">Builder & comunidad IA · ALC</div>
+      <div class="actor-flag flag-orange">Acceso potencial</div>
+    </div>
+    <div class="actor-card">
+      <div class="actor-name">Daniel Bilbao</div>
+      <div class="actor-role">Emprendedor tech / AI ecosystem · ALC</div>
+      <div class="actor-flag flag-orange">Acceso potencial</div>
+    </div>
+    <div class="actor-card">
+      <div class="actor-name">Valentina Ponce de León</div>
+      <div class="actor-role">AI ecosystem · ALC</div>
+      <div class="actor-flag flag-orange">Acceso potencial</div>
+    </div>
+  </div>
+
+  <div class="actor-section-label" style="color:var(--blue);">Capa 2 · Organizaciones de soporte del ecosistema</div>
+  <div class="actor-grid">
+    <div class="actor-card">
+      <div class="actor-name">Aceleradoras y hubs</div>
+      <div class="actor-role">Programas con portafolio activo de startups AI-enabled en la región</div>
+      <div class="actor-flag flag-blue">Por mapear</div>
+    </div>
+    <div class="actor-card">
+      <div class="actor-name">Venture builders</div>
+      <div class="actor-role">Organizaciones que co-construyen startups AI-native en ALC</div>
+      <div class="actor-flag flag-blue">Por mapear</div>
+    </div>
+    <div class="actor-card">
+      <div class="actor-name">Universidades y centros I+D</div>
+      <div class="actor-role">Con programas de formación en IA y vínculos activos con el ecosistema</div>
+      <div class="actor-flag flag-blue">Por mapear</div>
+    </div>
+  </div>
+
+  <div class="actor-section-label" style="color:var(--purple);">Capa 3 · Inversionistas early-stage</div>
+  <div class="actor-grid">
+    <div class="actor-card">
+      <div class="actor-name">Fondos VC regionales</div>
+      <div class="actor-role">Con portafolio de startups AI-enabled/native en ALC</div>
+      <div class="actor-flag flag-green">Por identificar en benchmarking</div>
+    </div>
+    <div class="actor-card">
+      <div class="actor-name">Ángeles inversionistas</div>
+      <div class="actor-role">Con experiencia en evaluación de startups AI-intensive en la región</div>
+      <div class="actor-flag flag-green">Por identificar</div>
+    </div>
+    <div class="actor-card">
+      <div class="actor-name">Corporate VC / Family Offices</div>
+      <div class="actor-role">Con estrategias de inversión en IA aplicada a sectores productivos</div>
+      <div class="actor-flag flag-green">Por identificar</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECCIÓN 5 — BENCHMARKING
+════════════════════════════════════════════ -->
+<section id="benchmarking">
+  <div class="sec-label">05 · Ecosistemas de referencia</div>
+  <h2 class="sec-title">Benchmarking internacional</h2>
+  <p class="sec-sub">El estudio comparará ALC con cinco ecosistemas avanzados para identificar modelos de adopción, mecanismos de soporte y prácticas de inversión transferibles al contexto regional.</p>
+
+  <div class="bench-grid">
+    <div class="bench-card">
+      <div class="bench-flag">🇺🇸</div>
+      <div class="bench-name">Estados Unidos</div>
+      <div class="bench-focus">YC AI cohorts · Silicon Valley AI ecosystem · Mercado de capital AI-literate más desarrollado</div>
+    </div>
+    <div class="bench-card">
+      <div class="bench-flag">🇮🇱</div>
+      <div class="bench-name">Israel</div>
+      <div class="bench-focus">Startup Nation + Unit 8200 · Gobierno como primer cliente de IA · Ecosistema defense-to-commercial</div>
+    </div>
+    <div class="bench-card">
+      <div class="bench-flag">🇸🇬</div>
+      <div class="bench-name">Singapur / Corea</div>
+      <div class="bench-focus">National AI programs · Verticals sectoriales · Modelos de adopción responsable a escala</div>
+    </div>
+    <div class="bench-card">
+      <div class="bench-flag">🇨🇦</div>
+      <div class="bench-name">Canadá</div>
+      <div class="bench-focus">Montreal-Toronto AI corridor · AI safety · Ecosistema universitario-startup</div>
+    </div>
+    <div class="bench-card">
+      <div class="bench-flag">🇪🇺</div>
+      <div class="bench-name">Unión Europea / UK</div>
+      <div class="bench-focus">AI Act y sus implicaciones para startups · Horizon Europe · Gobernanza responsable como modelo</div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px; font-size:12px; color:var(--txt2); font-style:italic;">
+    El benchmarking identificará explícitamente qué modelos son transferibles al contexto ALC y cuáles requieren adaptación por brechas estructurales de talento, financiamiento e infraestructura digital.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECCIÓN 6 — CRONOGRAMA
+════════════════════════════════════════════ -->
+<section id="cronograma">
+  <div class="sec-label">06 · Plan de entrega</div>
+  <h2 class="sec-title">Cronograma de entregables</h2>
+  <p class="sec-sub">El estudio se desarrolla en 4 meses con entregas progresivas. Reuniones de seguimiento cada 2 semanas; acta con acuerdos dentro de las 24h posteriores a cada sesión.</p>
+
+  <div class="gantt-wrap">
+    <table class="gantt">
+      <thead>
+        <tr>
+          <th style="width:220px; text-align:left; padding-left:12px;">Entregable</th>
+          <th colspan="3">Mes 1</th>
+          <th colspan="4">Mes 2</th>
+          <th colspan="4">Mes 3</th>
+          <th colspan="4">Mes 4</th>
+          <th style="width:50px;">Pago</th>
+        </tr>
+        <tr>
+          <th style="text-align:left; padding-left:12px; color:var(--txt3); font-weight:400;">Semanas →</th>
+          <th>1</th><th>2</th><th>3</th>
+          <th>4</th><th>5</th><th>6</th><th>7</th>
+          <th>8</th><th>9</th><th>10</th><th>11</th>
+          <th>12</th><th>13</th><th>14</th><th>15–16</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label">E1 · Análisis doc. + benchmarking + metodología</td>
+          <td class="g-o"></td><td class="g-o"></td><td class="g-o"></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td class="pct">15%</td>
+        </tr>
+        <tr>
+          <td class="label">E2 · Informe de avance + hallazgos preliminares</td>
+          <td></td><td></td><td></td>
+          <td class="g-b"></td><td class="g-b"></td><td class="g-b"></td><td class="g-b"></td>
+          <td class="g-b"></td><td class="g-b"></td><td class="g-b"></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td class="pct">20%</td>
+        </tr>
+        <tr>
+          <td class="label">E3 · Borrador flagship + Taller validación 1</td>
+          <td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td class="g-g"></td>
+          <td class="g-g"></td><td class="g-g"></td><td></td><td></td>
+          <td class="pct">30%</td>
+        </tr>
+        <tr>
+          <td class="label">E4 · Publicación final + toolkit + Taller 2</td>
+          <td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td class="g-p"></td><td class="g-p"></td>
+          <td class="pct">35%</td>
+        </tr>
+        <tr style="background:rgba(255,255,255,.02);">
+          <td class="sublabel">↳ Reuniones de seguimiento (cada 2 sem.)</td>
+          <td></td><td class="g-o" style="opacity:.3;"></td><td></td>
+          <td class="g-b" style="opacity:.3;"></td><td></td><td class="g-b" style="opacity:.3;"></td><td></td>
+          <td class="g-g" style="opacity:.3;"></td><td></td><td class="g-g" style="opacity:.3;"></td><td></td>
+          <td class="g-p" style="opacity:.3;"></td><td></td><td class="g-p" style="opacity:.3;"></td><td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:16px; display:flex; gap:16px; flex-wrap:wrap;">
+    <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--txt2);"><div style="width:14px;height:14px;border-radius:3px;background:rgba(232,145,92,.18);"></div>Análisis + metodología</div>
+    <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--txt2);"><div style="width:14px;height:14px;border-radius:3px;background:rgba(125,211,252,.12);"></div>Campo + hallazgos</div>
+    <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--txt2);"><div style="width:14px;height:14px;border-radius:3px;background:rgba(110,231,183,.12);"></div>Borrador + Taller 1</div>
+    <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--txt2);"><div style="width:14px;height:14px;border-radius:3px;background:rgba(167,139,250,.12);"></div>Publicación final + Taller 2</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECCIÓN 7 — EL CONSULTOR (CV)
+════════════════════════════════════════════ -->
+<section id="consultor">
+  <div class="sec-label">07 · El consultor</div>
+  <h2 class="sec-title">Alejandro Gil Rivera</h2>
+  <p class="sec-sub">No como observador externo del fenómeno que el estudio quiere documentar, sino como actor que ha interactuado con las tres capas del ecosistema — y que vive simultáneamente la transformación que se propone investigar.</p>
+
+  <div class="cv-wrap">
+    <div class="cv-topbar">
+      <div class="cv-topbar-title">Hoja de Vida · Alejandro Gil Rivera</div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <a href="CV_AlejandroGil_BIDLab.tex" download="CV_AlejandroGil_BIDLab.tex" class="cv-dl-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar CV (.tex)
+        </a>
+      </div>
+    </div>
+
+    <div class="cv-body">
+      <div class="cv-name">Alejandro Gil Rivera</div>
+      <div class="cv-role">AI & Innovation Ecosystem Consultant · Practitioner</div>
+      <div class="cv-contact">
+        <span>📍 Manizales, Colombia</span>
+        <a href="tel:+573044832350">📞 +57 304 483 2350</a>
+        <a href="mailto:gil.rivera.a@gmail.com">✉️ gil.rivera.a@gmail.com</a>
+        <a href="https://linkedin.com/in/alejandrogilrivera" target="_blank">🔗 linkedin.com/in/alejandrogilrivera</a>
+        <a href="https://github.com/git-agr" target="_blank">💻 github.com/git-agr</a>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="cv-sec-title">About</div>
+      <div style="font-size:12px; color:var(--txt2); line-height:1.7; margin-bottom:4px;">
+        Consultant and practitioner with 8+ years across startup ecosystems, international development organizations, and agricultural technology in Latin America. Co-founder of an EU-funded climate action startup, operations leader in HealthTech, research project manager for IDH and Conservation International — and active AI systems builder constructing automation pipelines and intelligent agents for agricultural operations and SMBs. Member of three leading AI communities in Latin America and the Caribbean. Unique dual perspective as both a smallholder coffee producer in Caldas and an AI practitioner, offering authentic first-hand insight into how AI is transforming startups, ecosystem support organizations, and investment dynamics across ALC.
+      </div>
+
+      <!-- EXPERIENCE -->
+      <div class="cv-sec-title">Experience</div>
+
+      <div class="cv-entry">
+        <div class="cv-date">Jun 2024<br>Mar 2025</div>
+        <div>
+          <div class="cv-title">Information System Consultant</div>
+          <div class="cv-org">IDH & Conservation International — HYLEA · Huila, Colombia</div>
+          <ul class="cv-bullets">
+            <li><span>Methodological framework design</span> and primary data collection with producers, local organizations, and ecosystem support actors.</li>
+            <li>Construction of <span>analytical framework</span>: taxonomies, monitoring indicators, and data governance matrices for multi-stakeholder coordination.</li>
+            <li>Delivered user manuals, sustainability plan (v2.0), and bi-weekly follow-up documentation to IDH and Conservation International.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-date">Nov 2024<br>Mar 2025</div>
+        <div>
+          <div class="cv-title">Project Leader</div>
+          <div class="cv-org">IDH — LATTE Program · Colombia</div>
+          <ul class="cv-bullets">
+            <li>Leadership in designing <span>climate financing mechanisms</span> for coffee producers across Latin America.</li>
+            <li>Development of <span>data-driven decision tools</span> for assessing climate resilience needs.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-date">Mar 2021<br>Present</div>
+        <div>
+          <div class="cv-title">Financial Officer (Co-founder)</div>
+          <div class="cv-org">Power Compost · Colombia</div>
+          <ul class="cv-bullets">
+            <li>Co-founder of circular economy startup; secured <span>$100K+ USD in EU grants</span> (Climate KIC, GIZ).</li>
+            <li>Participant in <span>Catalyst acceleration program</span> (Tec de Monterrey); 14,000+ kg waste diverted.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-date">Aug 2019<br>Feb 2022</div>
+        <div>
+          <div class="cv-title">Operations & Service Manager</div>
+          <div class="cv-org">Direktio S.A.S (HealthTech) · Colombia</div>
+          <ul class="cv-bullets">
+            <li>Leadership of remote <span>startup team</span> of up to 7; budgets exceeding $100K USD; AWS migration with 37% cost reduction.</li>
+            <li>BI dashboards (QlikView, Qlik Sense) and multi-source ETL pipelines for healthcare institutions.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="cv-sec-title">Projects</div>
+
+      <div class="cv-entry">
+        <div class="cv-date">Jan 2023<br>Present</div>
+        <div>
+          <div class="cv-title">Project Director & AI Systems Builder</div>
+          <div class="cv-org">Bellavista Coffee · Manizales, Colombia</div>
+          <ul class="cv-bullets">
+            <li>Built end-to-end <span>AI automation pipelines</span> (n8n + Claude API + Notion); AI-powered prospecting system for European roasters (Apify + n8n + Claude API).</li>
+            <li>First international export: Honey Castillo, German specialty marketplace (Garza Coffee, Germany).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-date">2024<br>Present</div>
+        <div>
+          <div class="cv-title">Active Member</div>
+          <div class="cv-org">AI Communities in Colombia — 3 Leading Networks</div>
+          <ul class="cv-bullets">
+            <li>Active participant in three of the most traction-generating <span>AI communities in LAC</span>, including Aztec Lab (Tec de Monterrey).</li>
+            <li>AI agent development (Claude API, MCP integrations), solution co-creation and knowledge sharing.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- EDUCATION -->
+      <div class="cv-sec-title">Education</div>
+      <div class="cv-entry">
+        <div class="cv-date">2013</div>
+        <div><div class="cv-title">MSc in Supply Chain Management</div><div class="cv-org">EM Normandie Business School · Le Havre, France</div></div>
+      </div>
+      <div class="cv-entry">
+        <div class="cv-date">2010</div>
+        <div><div class="cv-title">Bachelor in International Business</div><div class="cv-org">Lindenwood University · St. Charles, MO, USA</div></div>
+      </div>
+
+      <!-- SKILLS -->
+      <div class="cv-sec-title">Skills</div>
+      <div class="cv-skill-row"><div class="cv-skill-label">Research & Analysis</div><div class="cv-skill-val">Primary data collection, methodological framework design, case study development, impact narratives, data visualization (Power BI)</div></div>
+      <div class="cv-skill-row"><div class="cv-skill-label">AI & Automation</div><div class="cv-skill-val">Claude API, n8n workflows, MCP Integrations, AI agent development, Apify, prompt engineering, vibe coding</div></div>
+      <div class="cv-skill-row"><div class="cv-skill-label">Project Management</div><div class="cv-skill-val">Agile/SCRUM, Asana, Notion, multi-stakeholder coordination, budgets +$100K USD</div></div>
+      <div class="cv-skill-row"><div class="cv-skill-label">Languages</div><div class="cv-skill-val">Spanish (native) · English (professional) · French (professional) · Portuguese (intermediate)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div style="border-top:1px solid var(--bdr); padding:20px 40px; font-size:10px; color:var(--txt3); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; max-width:960px; margin:0 auto;">
+  <span>BID Lab Consultoría — Project Brief & Approach Memo</span>
+  <span>v1 · Junio 2026 · Alejandro Gil Rivera · gil.rivera.a@gmail.com</span>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════ -->
+<script>
+// Language toggle
+function toggleLang(lang) {
+  document.getElementById('btnES').classList.toggle('active', lang === 'es');
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  if (lang === 'en') {
+    document.getElementById('enOverlay').classList.add('show');
+  } else {
+    document.getElementById('enOverlay').classList.remove('show');
+  }
+}
+
+// Subnav active state on scroll
+function setNav(el) {
+  document.querySelectorAll('.snb').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+}
+
+// Intersection Observer for subnav
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.snb');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('on'));
+      const link = document.querySelector(`.snb[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('on');
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Layer accordion
+function toggleLayer(header) {
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.layer-toggle');
+  const isOpen = body.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.layer-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.layer-toggle').forEach(t => { t.style.transform = ''; });
+  // Open clicked (if wasn't open)
+  if (!isOpen) {
+    body.classList.add('open');
+    toggle.style.transform = 'rotate(90deg)';
+  }
+}
+</script>
+
+</body>
+</html>
