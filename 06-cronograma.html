@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06 · Cronograma — Project Brief BID Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="lang-overlay" id="enOverlay">
+  <div style="font-size:32px">🚧</div>
+  <div class="lang-overlay-title">English version coming soon</div>
+  <div class="lang-overlay-sub">Este project brief está actualmente disponible en español.</div>
+  <button class="lang-overlay-close" onclick="toggleLang('es')">Volver al español</button>
+</div>
+
+<header class="hdr">
+  <div class="hdr-left">
+    <div class="hdr-icon">🔬</div>
+    <div>
+      <div class="hdr-title">Project Brief — BID Lab Consultoría</div>
+      <div class="hdr-sub">IA en el Ecosistema Emprendedor · ALC · 2026</div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <a class="gh-link" href="https://github.com/agr-git/bidlab-ai-ecosistema-alc" target="_blank" rel="noopener">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33c.85 0 1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+      Repo
+    </a>
+    <div class="lang-btn">
+      <button id="btnES" class="active" onclick="toggleLang('es')">ES</button>
+      <button id="btnEN" onclick="toggleLang('en')">EN</button>
+    </div>
+    <span class="badge">v2 · Jun 2026</span>
+  </div>
+</header>
+
+<nav class="subnav">
+  <a class="snb" href="index.html"><span class="snb-num">00</span>Cover</a>
+  <a class="snb" href="01-contexto.html"><span class="snb-num">01</span>El Contexto</a>
+  <a class="snb" href="02-tesis.html"><span class="snb-num">02</span>La Tesis</a>
+  <a class="snb" href="03-metodologia.html"><span class="snb-num">03</span>Metodología</a>
+  <a class="snb" href="04-actores.html"><span class="snb-num">04</span>Actores Clave</a>
+  <a class="snb" href="05-benchmarking.html"><span class="snb-num">05</span>Benchmarking</a>
+  <a class="snb" href="06-cronograma.html"><span class="snb-num">06</span>Cronograma</a>
+  <a class="snb" href="07-consultor.html"><span class="snb-num">07</span>El Consultor</a>
+</nav>
+
+<section class="page">
+  <div class="sec-label">06 · Plan de entrega</div>
+  <h1 class="sec-title">Cronograma <span class="underline-em">tentativo</span> de entregables</h1>
+  <p class="sec-sub">El estudio se desarrolla en 4 meses con entregas progresivas. Reuniones de seguimiento cada 2 semanas; acta con acuerdos dentro de las 24h posteriores a cada sesión. <em>Esta es una versión tentativa — se detallará a mayor nivel en la propuesta técnica y económica de la segunda etapa de este proceso.</em></p>
+
+  <div class="gantt-wrap">
+    <table class="gantt">
+      <thead>
+        <tr>
+          <th style="width:240px; text-align:left; padding-left:14px;">Entregable</th>
+          <th colspan="3">Mes 1</th>
+          <th colspan="4">Mes 2</th>
+          <th colspan="4">Mes 3</th>
+          <th colspan="4">Mes 4</th>
+          <th style="width:50px;">Pago</th>
+        </tr>
+        <tr>
+          <th style="text-align:left; padding-left:14px; color:var(--txt3); font-weight:400;">Semanas →</th>
+          <th>1</th><th>2</th><th>3</th>
+          <th>4</th><th>5</th><th>6</th><th>7</th>
+          <th>8</th><th>9</th><th>10</th><th>11</th>
+          <th>12</th><th>13</th><th>14</th><th>15–16</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label">E1 · Análisis doc. + benchmarking + metodología</td>
+          <td class="g-o"></td><td class="g-o"></td><td class="g-o"></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td class="pct">15%</td>
+        </tr>
+        <tr>
+          <td class="label">E2 · Informe de avance + hallazgos preliminares</td>
+          <td></td><td></td><td></td>
+          <td class="g-b"></td><td class="g-b"></td><td class="g-b"></td><td class="g-b"></td>
+          <td class="g-b"></td><td class="g-b"></td><td class="g-b"></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td class="pct">20%</td>
+        </tr>
+        <tr>
+          <td class="label">E3 · Borrador flagship + Taller validación 1</td>
+          <td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td class="g-g"></td>
+          <td class="g-g"></td><td class="g-g"></td><td></td><td></td>
+          <td class="pct">30%</td>
+        </tr>
+        <tr>
+          <td class="label">E4 · Publicación final + toolkit + Taller 2</td>
+          <td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td></td><td></td>
+          <td></td><td></td><td class="g-p"></td><td class="g-p"></td>
+          <td class="pct">35%</td>
+        </tr>
+        <tr style="background:rgba(255,255,255,.02);">
+          <td class="sublabel">↳ Reuniones de seguimiento (cada 2 sem.)</td>
+          <td></td><td class="g-o" style="opacity:.3;"></td><td></td>
+          <td class="g-b" style="opacity:.3;"></td><td></td><td class="g-b" style="opacity:.3;"></td><td></td>
+          <td class="g-g" style="opacity:.3;"></td><td></td><td class="g-g" style="opacity:.3;"></td><td></td>
+          <td class="g-p" style="opacity:.3;"></td><td></td><td class="g-p" style="opacity:.3;"></td><td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:18px; display:flex; gap:18px; flex-wrap:wrap;">
+    <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--txt2);"><div style="width:14px;height:14px;border-radius:3px;background:rgba(232,145,92,.18);"></div>Análisis + metodología</div>
+    <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--txt2);"><div style="width:14px;height:14px;border-radius:3px;background:rgba(125,211,252,.12);"></div>Campo + hallazgos</div>
+    <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--txt2);"><div style="width:14px;height:14px;border-radius:3px;background:rgba(110,231,183,.12);"></div>Borrador + Taller 1</div>
+    <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--txt2);"><div style="width:14px;height:14px;border-radius:3px;background:rgba(167,139,250,.12);"></div>Publicación final + Taller 2</div>
+  </div>
+
+  <div class="continue">
+    <a class="continue-card prev" href="05-benchmarking.html">
+      <div class="continue-eyebrow"><span class="continue-arrow">←</span> Anterior</div>
+      <div class="continue-title">05 · Benchmarking</div>
+      <div class="continue-sub">Ecosistemas de referencia.</div>
+    </a>
+    <a class="continue-card next" href="07-consultor.html">
+      <div class="continue-eyebrow">Continuar lectura <span class="continue-arrow">→</span></div>
+      <div class="continue-title">07 · El Consultor</div>
+      <div class="continue-sub">Quién lidera la propuesta y por qué este perfil.</div>
+    </a>
+  </div>
+</section>
+
+<div class="ft">
+  <span>BID Lab Consultoría — Project Brief & Approach Memo</span>
+  <span>v2 · Junio 2026 · Alejandro Gil Rivera · gil.rivera.a@gmail.com</span>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
