@@ -1,11 +1,12 @@
 /* ═══════════════════════════════════════════════════
    BID Lab Project Brief — Shared Styles
-   v2 · Multi-page edition
+   v3 · Multi-page edition · feedback incorporation
 ═══════════════════════════════════════════════════ */
 
 :root {
   --orange: #E8915C; --orange-b: #F5A147; --orange-d: #D17A47;
   --blue: #7DD3FC; --green: #6EE7B7; --purple: #A78BFA;
+  --pink: #F472B6; /* v2: gender dimension token */
   --bg: #0A0A0A; --card: #1A1A1A; --card2: #141414;
   --txt: #F5F5F5; --txt2: #A0A0A0; --txt3: #666;
   --bdr: #2E2E2E; --bdr2: #3A3A3A; --bdr3: #444;
@@ -488,3 +489,110 @@ body {
   .cv-body { padding: 26px 22px; }
   .continue-card.next { margin-left: 0; }
 }
+
+/* ═══════════════════════════════════════════════════
+   v3 ADDITIONS — feedback incorporation
+═══════════════════════════════════════════════════ */
+
+/* Hero subline — gender variable transversal */
+.hero-title-genero {
+  display: block;
+  margin-top: 14px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.42em;
+  font-weight: 600;
+  color: var(--pink);
+  letter-spacing: -.005em;
+  line-height: 1.3;
+}
+@media (max-width: 720px) {
+  .hero-title-genero { font-size: 0.55em; margin-top: 12px; }
+}
+
+/* Gender variable card (Section 02) */
+.layer-card.gender {
+  border-color: rgba(244,114,182,.25);
+}
+.layer-card.gender .layer-num {
+  background: rgba(244,114,182,.12);
+  color: var(--pink);
+}
+.layer-card.gender .layer-title { color: var(--pink); }
+.layer-card.gender .layer-question {
+  border-color: var(--pink);
+  color: var(--pink);
+}
+.gender-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--pink);
+  margin-bottom: 12px;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.gender-impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+@media (max-width: 640px) {
+  .gender-impact-grid { grid-template-columns: 1fr; }
+}
+.gender-impact-cell {
+  background: var(--card2);
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  padding: 12px;
+}
+.gender-impact-cell .gic-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  letter-spacing: .04em;
+}
+.gender-impact-cell .gic-text {
+  font-size: 11px;
+  color: var(--txt2);
+  line-height: 1.5;
+}
+.gic-label.l1 { color: var(--orange); }
+.gic-label.l2 { color: var(--blue); }
+.gic-label.l3 { color: var(--purple); }
+
+/* Pink-tinted callouts (gender criterion, etc.) */
+.callout.pink {
+  background: rgba(244,114,182,.04);
+  border-color: rgba(244,114,182,.3);
+  border-left-color: var(--pink);
+}
+.callout.pink strong { color: var(--pink); }
+
+/* Blue-tinted callouts (validation notes) */
+.callout.blue {
+  background: rgba(125,211,252,.04);
+  border-color: rgba(125,211,252,.25);
+  border-left-color: var(--blue);
+}
+.callout.blue strong { color: var(--blue); }
+
+/* Pink-tinted actor cards (women leaders / gender-coded) */
+.actor-card.pink-tint { border-color: rgba(244,114,182,.25); }
+.actor-card.pink-tint:hover { border-color: var(--pink); }
+.actor-card.pink-tint .actor-flag { color: var(--pink); }
+.actor-card.linked.pink-tint:hover .actor-name { color: var(--pink); }
+
+/* Institutional reference cards (smaller, sober) */
+.actor-card.ref { padding: 16px 18px; }
+.actor-card.ref .actor-name { font-size: 12px; margin-bottom: 5px; }
+.actor-card.ref .actor-role { font-size: 11px; line-height: 1.55; }
+.actor-card.ref.ref-blue { border-color: rgba(125,211,252,.2); }
+.actor-card.ref.ref-green { border-color: rgba(110,231,183,.2); }
+.actor-card.ref.ref-orange { border-color: rgba(232,145,92,.2); }
+.actor-card.ref.ref-purple { border-color: rgba(167,139,250,.2); }
+
